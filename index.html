@@ -169,7 +169,7 @@
             const subTotal = firstClassCount * 150 + economyClassCount * 100;
             document.getElementById('sub-total').innerText = subTotal;
 
-            const vat = Math.round(subTotal * 0.1);
+            const vat = subTotal * 0.1;
             document.getElementById('vat-amount').innerText = vat;
 
             const grandTotal = subTotal + vat;
