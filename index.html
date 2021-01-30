@@ -113,7 +113,7 @@
     <!-- This section will appear if someone clicks 'Book Now' button. -->
         <div id="bookNow-area">
             <div class="text-center">
-                <h1 style="color: rgb(52, 240, 52);">Congratulations!</h1>
+                <h1 style="color: rgb(153, 245, 153);">Congratulations!</h1>
                 <h4>Your booking is confirmed!</h4>
                 <h4>Please enter your email address below to receive your e-ticket booking confirmation.</h4>
             </div>
@@ -128,7 +128,6 @@
         //This function is used to add or deduct number of tickets and display the total cost (including changes in VAT and subtotal)
         function controlTicketChange(ticketClass, isIncrease){
             const ticketClassCount = ticketInputValue(ticketClass);
-            console.log(ticketClassCount);
             let ticketClassNewCount = 0;
             if(isIncrease == true){
                 ticketClassNewCount = ticketClassCount + 1;
@@ -141,7 +140,7 @@
         }
 
 
-        //This function is used to calculate Subtotal, VAT and Grand Total and display them in their fields respectively.
+        //This function is used to calculate Subtotal, VAT and Grand Total and display them in their places respectively.
         function calculateTotal(){
             const firstClassCount = ticketInputValue('firstClass');
             const economyClassCount = ticketInputValue('economyClass');
@@ -157,7 +156,7 @@
         }
 
         
-        //This function is used to grab the ticket input from input field
+        //This function is used to grab the input value from ticket input field and return that value after converting it into a number.
         function ticketInputValue(ticketClass){
             const ticketClassInput = document.getElementById(ticketClass + '-count');
             const ticketClassCount = parseInt(ticketClassInput.value);
