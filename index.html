@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <!-- Stylesheet -->
+    <!-- Stylesheet --> <!--PLEASE USE INTERNET CONNECTION WHILE CHECKING THIS ASSIGNMENT. I HAVE USED FONT AWESOME LINK IN THE HEAD TAG.-->
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/227629a793.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -31,13 +31,13 @@
     <!--Booking Section-->
     <main class="main-content container">
 
-        <div class="booking-content">
+        <div id="bookingContent-area" class="booking-content">
             <h1>Cruise Queen</h1>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
         </div>
 
 
-        <div class="booking-form">
+        <div id="bookingForm-area" class="booking-form">
             <h3>Book Ocean Time</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
@@ -63,8 +63,8 @@
                     <input id="firstClass-count" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="top-padding">
-                    <button id="firstClass-increase" class="btn btn-success"><i class="fas fa-plus"></i></button>
-                    <button id="firstClass-decrease" class="btn btn-danger"><i class="fas fa-minus"></i></button>
+                    <button onclick="controlTicketChange('firstClass', true)" class="btn btn-success"><i class="fas fa-plus"></i></button>
+                    <button onclick="controlTicketChange('firstClass', false)" class="btn btn-danger"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
             
@@ -74,8 +74,8 @@
                     <input id="economyClass-count" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="top-padding">
-                    <button id="economyClass-increase" class="btn btn-success"><i class="fas fa-plus"></i></button>
-                    <button id="economyClass-decrease" class="btn btn-danger"><i class="fas fa-minus"></i></button>
+                    <button onclick="controlTicketChange('economyClass', true)" class="btn btn-success"><i class="fas fa-plus"></i></button>
+                    <button onclick="controlTicketChange('economyClass', false)" class="btn btn-danger"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
             <div class="calculations">
@@ -106,65 +106,45 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button id="bookNow-button" class="btn-style">Book Now</button>
         </div>
     </main>
+    
+    <!-- This section will appear if someone clicks 'Book Now' button. -->
+        <div id="bookNow-area">
+            <div class="text-center">
+                <h1 style="color: rgb(52, 240, 52);">Congratulations!</h1>
+                <h4>Your booking is confirmed!</h4>
+                <h4>Please enter your email address below to receive your e-ticket booking confirmation.</h4>
+            </div>
+            <div class="input-group mb-3 input-field">
+                <input type="text" class="form-control" placeholder="Enter your e-mail" aria-label="Enter your e-mail" aria-describedby="button-addon2">
+                <button class="btn btn-primary" type="button" id="button-addon2">Enter</button>
+            </div>
+        </div>
 
     <script>
         
-        function firstClassTicketCount(isIncrease){
-            const firstClassInput = document.getElementById('firstClass-count');
-            const firstClassCount = parseInt(firstClassInput.value);
-            let firstClassNewCount = 0;
+        //This function is used to add or deduct number of tickets and display the total cost (including changes in VAT and subtotal)
+        function controlTicketChange(ticketClass, isIncrease){
+            const ticketClassCount = ticketInputValue(ticketClass);
+            console.log(ticketClassCount);
+            let ticketClassNewCount = 0;
             if(isIncrease == true){
-                firstClassNewCount = firstClassCount + 1;
+                ticketClassNewCount = ticketClassCount + 1;
             }
-            else if(isIncrease == false && firstClassCount > 0){
-                firstClassNewCount = firstClassCount - 1;
+            else if(isIncrease == false && ticketClassCount > 0){
+                ticketClassNewCount = ticketClassCount - 1;
             }
-            firstClassInput.value = firstClassNewCount;
+            document.getElementById(ticketClass + '-count').value = ticketClassNewCount;
             calculateTotal();
         }
 
-        function economyClassTicketCount(isIncrease){
-            const firstClassInput = document.getElementById('economyClass-count');
-            const firstClassCount = parseInt(firstClassInput.value);
-            let firstClassNewCount = 0;
-            if(isIncrease == true){
-                firstClassNewCount = firstClassCount + 1;
-            }
-            else if(isIncrease == false && firstClassCount > 0){
-                firstClassNewCount = firstClassCount - 1;
-            }
-            firstClassInput.value = firstClassNewCount;
-            calculateTotal();
-        }
-        
-        document.getElementById('firstClass-increase').addEventListener('click',function(){
-            firstClassTicketCount(true);
-        });
 
-        document.getElementById('firstClass-decrease').addEventListener('click',function(){
-            firstClassTicketCount(false);
-        });
-
-        document.getElementById('economyClass-increase').addEventListener('click',function(){
-            economyClassTicketCount(true);
-        });
-        
-        document.getElementById('economyClass-decrease').addEventListener('click',function(){
-            economyClassTicketCount(false);
-        });
-
+        //This function is used to calculate Subtotal, VAT and Grand Total and display them in their fields respectively.
         function calculateTotal(){
-            // const firstClassInput = document.getElementById('firstClass-count');
-            // const firstClassCount = parseInt(firstClassInput.value);
-
-            // const economyClassInput = document.getElementById('economyClass-count');
-            // const economyClassCount = parseInt(economyClassInput.value);
-
-            const firstClassCount = ticketClassInput('firstClass');
-            const economyClassCount = ticketClassInput('economyClass');
+            const firstClassCount = ticketInputValue('firstClass');
+            const economyClassCount = ticketInputValue('economyClass');
             
             const subTotal = firstClassCount * 150 + economyClassCount * 100;
             document.getElementById('sub-total').innerText = subTotal;
@@ -176,25 +156,24 @@
             document.getElementById('grand-total').innerText = grandTotal;
         }
 
-        function ticketClassInput(ticketClass){
+        
+        //This function is used to grab the ticket input from input field
+        function ticketInputValue(ticketClass){
             const ticketClassInput = document.getElementById(ticketClass + '-count');
             const ticketClassCount = parseInt(ticketClassInput.value);
             return ticketClassCount;
         }
 
-        // document.getElementById('firstClass-increase').addEventListener('click',function(){
-        //     const firstClassInput = document.getElementById('firstClass-count');
-        //     const firstClassCount = parseInt(firstClassInput.value);
-        //     const firstClassNewCount = firstClassCount + 1;
-        //     firstClassInput.value = firstClassNewCount;
-        // })
 
-        // document.getElementById('firstClass-decrease').addEventListener('click',function(){
-        //     const firstClassInput = document.getElementById('firstClass-count');
-        //     const firstClassCount = parseInt(firstClassInput.value);
-        //     const firstClassNewCount = firstClassCount - 1;
-        //     firstClassInput.value = firstClassNewCount;
-        // })
+        //'Book Now' button message handler
+        document.getElementById('bookNow-button').addEventListener('click', function(){
+            const bookingContentArea = document.getElementById('bookingContent-area');
+            bookingContentArea.style.display = 'none';
+            const bookingFormArea = document.getElementById('bookingForm-area');
+            bookingFormArea.style.display = 'none';
+            const bookNowArea = document.getElementById('bookNow-area');
+            bookNowArea.style.display = 'block';
+        });
     </script>
     
     <!--Thank You-->

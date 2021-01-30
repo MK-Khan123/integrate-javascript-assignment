@@ -125,3 +125,11 @@ nav ul li a:hover, a.active{
 .top-padding{
     padding-top: 36.5px;
 }
+#bookNow-area{
+    display: none;
+    margin-top: 125px;
+    color:white;
+}
+.input-field{
+    padding: 0 500px 0 500px;
+}
